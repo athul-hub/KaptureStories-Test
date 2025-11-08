@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>KS-Album</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <!-- Favicon -->
+  <link href="img/favicon.ico" rel="icon">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=DM+Serif+Text:ital@0;1&display=swap"
+    rel="stylesheet">
+
+  <!-- Bootstrap & Icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Animation Libraries -->
+  <link href="lib/animate/animate.min.css" rel="stylesheet">
+  <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+  <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+  <!-- Template CSS -->
+  <link href="css/style.css" rel="stylesheet">
+
+  <style>
+    /* Base */
+    body {
+      margin: 0;
+      background: transparent;
+      overflow-x: hidden;
+    }
+
+    /* Video background */
+    #bgVideo {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -1;
+      filter: brightness(0.6);
+    }
+
+    /* Navbar — transparent at top */
+    .navbar {
+      transition: background-color 0.5s ease, backdrop-filter 0.5s ease;
+      background-color: transparent !important;
+    }
+
+    /* Navbar after scrolling */
+    .navbar.scrolled {
+      background-color: rgba(176, 158, 153, 0.95) !important;
+      backdrop-filter: blur(5px);
+    }
+    .navbar.show-background {
+    background-color: rgba(176, 158, 153, 0.95) !important;
+    backdrop-filter: blur(5px);
+    transition: background-color 0.3s ease;
+    }
+    body.nav-open {
+    overflow: hidden;
+    height: 100vh;
+    }
+    /* Prevent background scroll */
+    body.nav-locked {
+    position: fixed;
+    overflow-y: scroll;
+    width: 100%;
+    }
+
+
+    /* Content styling */
+    .page-content {
+      position: relative;
+      z-index: 2;
+      color: white;
+      font-family: 'Cinzel', serif;
+    }
+
+    section {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 60px;
+    }
+/* 🔹 Scroll Button Style */
+.scroll-btn {
+  position: relative; /* ✅ changed from absolute — ensures correct placement in flex layout */
+  margin-top: 1vh; /* space below text */
+  background: rgba(255, 255, 255, 0);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 3% ;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 9999; /* ✅ stays on top of video */
+}
+
+.scroll-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(3px);
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+}
+
+.scroll-btn  {
+  animation: bounce 6s ease-in-out infinite;
+  padding-left: 2vw;
+  padding-right: 2vw;
+  padding-bottom: 1vh;
+  padding-top: 1vh;
+
+}
+
+/* Small bounce animation */
+@keyframes bounce {
+  0%, 5%, 10% { transform: translateY(0); }  /* Start steady */
+  2% { transform: translateY(6px); }         /* Small downward motion */
+  4% { transform: translateY(3px); }         /* Return halfway */
+  100% { transform: translateY(0); }         /* Rest of time still */
+}
+
+
+
+
+    h1, h2, p {
+      color: white;
+    }
+    .card-img-top {
+  transition: transform 0.4s ease, filter 0.4s ease;
+}
+
+.card:hover .card-img-top {
+  transform: scale(1.05);
+  filter: brightness(1.2);
+}
+  </style>
+</head>
+
+<body>
+  <!-- 🔹 Fixed Background Video -->
+  <video autoplay muted loop playsinline id="bgVideo"
+   poster="media-album/banner-poster.png">
+    <source src="media-album/backgrounf-video.mp4" type="video/mp4">
+  </video>
+
+  <!-- 🔹 Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark px-lg-5 fixed-top">
+    <a href="index.html" class="navbar-brand ms-4 ms-lg-0">
+      <h2 class="mb-0 text-uppercase" style="color: white !important;">Kapture | Stories</h2>
+    </a>
+    <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <div class="navbar-nav ms-auto p-4 p-lg-0">
+        <a href="index.html" class="nav-item nav-link">Home</a>
+        <a href="films.html" class="nav-item nav-link">Films</a>
+        <a href="gallery.html" class="nav-item nav-link">Gallery</a>
+        <a href="https://wa.me/919876543210?text=Hi%20there!%20I’m%20interested%20in%20working%20with%20you."
+           target="_blank" class="nav-item nav-link">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 🔹 Page Content -->
+  <div class="page-content">
+        <section>
+            <h1>Our Collection</h1>
+            <p>See how stories come together.</p>
+            <button id="scrollDownBtn" class="scroll-btn">
+                <span>Scroll Through</span>
+            </button>
+
+        </section>
+
+        <section class="container py-5">
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+    <!-- Grid Item -->
+    <div class="col">
+      <div class="card bg-transparent border-0 text-center">
+        <img src="media-album/cover-img1.webp" class="card-img-top img-fluid rounded" alt="Photo 1">
+        <div class="card-body p-2">
+          <p class="card-text text-white">#name</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Repeat for more items -->
+    <div class="col">
+      <div class="card bg-transparent border-0 text-center">
+        <img src="media-album/cover-img2.webp" class="card-img-top img-fluid rounded" alt="Photo 2">
+        <div class="card-body p-2">
+          <p class="card-text text-white">#name</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="card bg-transparent border-0 text-center">
+        <img src="media-album/cover-img3.webp" class="card-img-top img-fluid rounded" alt="Photo 3">
+        <div class="card-body p-2">
+          <p class="card-text text-white">#name</p>
+        </div>
+      </div>
+    </div>
+
+        <div class="col">
+      <div class="card bg-transparent border-0 text-center">
+        <img src="media-album/cover-img4.webp" class="card-img-top img-fluid rounded" alt="Photo 3">
+        <div class="card-body p-2">
+          <p class="card-text text-white">#name</p>
+        </div>
+      </div>
+    </div>
+
+        <div class="col">
+      <div class="card bg-transparent border-0 text-center">
+        <img src="media-album/cover-img5.webp" class="card-img-top img-fluid rounded" alt="Photo 3">
+        <div class="card-body p-2">
+          <p class="card-text text-white">#name</p>
+        </div>
+      </div>
+    </div>
+
+        <div class="col">
+      <div class="card bg-transparent border-0 text-center">
+        <img src="media-album/cover-img6.webp" class="card-img-top img-fluid rounded" alt="Photo 3">
+        <div class="card-body p-2">
+          <p class="card-text text-white">#name</p>
+        </div>
+      </div>
+    </div>
+
+        <div class="col">
+      <div class="card bg-transparent border-0 text-center">
+        <img src="media-album/cover-img7.webp" class="card-img-top img-fluid rounded" alt="Photo 3">
+        <div class="card-body p-2">
+          <p class="card-text text-white">#name</p>
+        </div>
+      </div>
+    </div>
+
+        <div class="col">
+      <div class="card bg-transparent border-0 text-center">
+        <img src="media-album/cover-img8.webp" class="card-img-top img-fluid rounded" alt="Photo 3">
+        <div class="card-body p-2">
+          <p class="card-text text-white">#name</p>
+        </div>
+      </div>
+    </div>
+
+</section>
+
+  </div>
+
+  <!-- JS -->
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Navbar scroll behavior -->
+
+<script>
+  const navCollapse = document.getElementById("navbarCollapse");
+  const navbar = document.querySelector(".navbar");
+  let scrollPosition = 0;
+
+  // Lock scroll when menu opens
+  navCollapse.addEventListener("show.bs.collapse", () => {
+    scrollPosition = window.pageYOffset;
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${scrollPosition}px`;
+    document.body.style.width = "100%";
+    document.body.style.overflowY = "hidden";
+    navbar.classList.add("show-background");
+  });
+
+  // Unlock scroll when menu closes
+  navCollapse.addEventListener("hidden.bs.collapse", () => {
+    document.body.style.position = "";
+    document.body.style.top = "";
+    document.body.style.width = "";
+    document.body.style.overflowY = "";
+    window.scrollTo(0, scrollPosition);
+    navbar.classList.remove("show-background");
+  });
+
+  // Navbar background on scroll
+  window.addEventListener("scroll", function () {
+    if (window.scrollY > 50) {
+      navbar.classList.add("scrolled");
+    } else {
+      navbar.classList.remove("scrolled");
+    }
+  });
+</script>
+<script>
+  document.getElementById("scrollDownBtn").addEventListener("click", () => {
+    window.scrollBy({
+      top: window.innerHeight * 0.8, // scrolls down ~80% of the current viewport height
+      behavior: "smooth"
+    });
+  });
+</script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>KS-Gallery</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <!-- Favicon -->
+  <link href="img/favicon.ico" rel="icon">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=DM+Serif+Text:ital@0;1&display=swap"
+    rel="stylesheet">
+
+  <!-- Bootstrap & Icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Animation Libraries -->
+  <link href="lib/animate/animate.min.css" rel="stylesheet">
+  <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+  <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+  <!-- Template CSS -->
+  <link href="css/style.css" rel="stylesheet">
+
+  <style>
+    /* Base */
+    body {
+      margin: 0;
+      background: transparent;
+      overflow-x: hidden;
+    }
+
+    /* Video background */
+    #bgVideo {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -1;
+      filter: brightness(0.6);
+    }
+
+    /* Navbar — transparent at top */
+    .navbar {
+      transition: background-color 0.5s ease, backdrop-filter 0.5s ease;
+      background-color: transparent !important;
+    }
+
+    /* Navbar after scrolling */
+    .navbar.scrolled {
+      background-color: rgba(176, 158, 153, 0.95) !important;
+      backdrop-filter: blur(5px);
+    }
+    .navbar.show-background {
+    background-color: rgba(176, 158, 153, 0.95) !important;
+    backdrop-filter: blur(5px);
+    transition: background-color 0.3s ease;
+    }
+    body.nav-open {
+    overflow: hidden;
+    height: 100vh;
+    }
+    /* Prevent background scroll */
+    body.nav-locked {
+    position: fixed;
+    overflow-y: scroll;
+    width: 100%;
+    }
+
+
+    /* Content styling */
+    .page-content {
+      position: relative;
+      z-index: 2;
+      color: white;
+      font-family: 'Cinzel', serif;
+    }
+
+    section {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+
+
+    h1, h2, p {
+      color: white;
+    }
+    .card-img-top {
+  transition: transform 0.4s ease, filter 0.4s ease;
+}
+
+.card:hover .card-img-top {
+  transform: scale(1.05);
+  filter: brightness(1.2);
+}
+  </style>
+</head>
+
+<body>
+  <!-- 🔹 Fixed Background Video -->
+<video autoplay muted loop playsinline id="bgVideo" poster="media-gallery/banner-preview.png">
+  <source id="bgVideoSource" src="media-gallery/banner-video-classic.mp4" type="video/mp4">
+</video>
+
+  <!-- 🔹 Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark px-lg-5 fixed-top">
+    <a href="index.html" class="navbar-brand ms-4 ms-lg-0">
+      <h2 class="mb-0 text-uppercase" style="color: white !important;">Kapture | Stories</h2>
+    </a>
+    <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <div class="navbar-nav ms-auto p-4 p-lg-0">
+        <a href="index.html" class="nav-item nav-link">Home</a>
+        <a href="films.html" class="nav-item nav-link">Films</a>
+        <a href="album.html" class="nav-item nav-link">Album</a>
+        <a href="https://wa.me/919876543210?text=Hi%20there!%20I’m%20interested%20in%20working%20with%20you."
+           target="_blank" class="nav-item nav-link">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 🔹 Page Content -->
+  <div class="page-content">
+
+        <section>
+                    <style>
+    .banner {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .carousel-inner {
+      height: 100%;
+    }
+
+    .carousel-item {
+      height: 100vh;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+
+    .carousel-caption {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: white;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+    }
+
+    .carousel-caption h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+    }
+
+    .carousel-caption p {
+      font-size: 1.2rem;
+      margin-top: 10px;
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    .carousel-selectors {
+      position: absolute;
+      bottom: 50px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 15px;
+      z-index: 5;
+    }
+
+    .carousel-selectors button {
+      background: rgba(255, 255, 255, 0.15);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: 6px;
+      padding: 10px 22px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(4px);
+    }
+
+    .carousel-selectors button:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: translateY(2px);
+    }
+
+    .carousel-selectors button.active {
+      background: white;
+      color: black;
+      font-weight: bold;
+      transform: scale(1.05);
+    }
+
+    .image-grid {
+      display: none;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .image-grid.active {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .gallery {
+        column-count: 3; /* Responsive masonry layout */
+        column-gap: 1%;
+        padding-left: 2%;
+        padding-right: 2%;
+        background:transparent
+    }
+
+    .gallery img {
+        width: 100%;
+        display: block;
+        margin-bottom: 8px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .gallery img:hover {
+        transform: scale(1.03);
+    }
+
+    .lightbox {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.9);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease-in-out;
+		z-index: 9999;
+    }
+
+    .lightbox.show {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .lightbox img {
+        max-width: 90%;
+        max-height: 90%;
+        object-fit: contain;
+        border-radius: 8px;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .nav-arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 30px;
+        color: white;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 10px;
+        transition: opacity 0.3s ease-in-out;
+        opacity: 0.5;
+    }
+
+    .nav-arrow:hover {
+        opacity: 1;
+    }
+
+    .prev { left: 20px; }
+    .next { right: 20px; }
+
+    .close-btn {
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        font-size: 30px;
+        color: white;
+        background: none;
+        border: none;
+        cursor: pointer;
+        opacity: 0.7;
+        transition: opacity 0.3s ease-in-out;
+    }
+
+    .close-btn:hover {
+        opacity: 1;
+    }
+
+    @media (max-width: 768px) {
+        .gallery { column-count: 2;
+            padding-left: 5%;
+            padding-right: 5%;
+         }
+    }
+
+    @media (max-width: 480px) {
+        .gallery { column-count: 1; }
+    }
+</style>
+
+  <!-- Carousel -->
+  <div id="manualBanner" class="carousel slide banner" data-bs-ride="false">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <div class="carousel-caption">
+          <h1>Classic Beauty</h1>
+          <p>Elegance that never fades.</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="carousel-caption">
+          <h1>visual poetry</h1>
+          <p>Every frame tells a story.</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="carousel-caption">
+          <h1>The Art of Love</h1>
+          <p>Where light and feeling meet</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="carousel-caption">
+          <h1>modern grace</h1>
+          <p>clean lines, timeless emotion</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Selector Buttons -->
+    <div class="carousel-selectors">
+      <button data-bs-target="#manualBanner" data-bs-slide-to="0" class="active">classic</button>
+      <button data-bs-target="#manualBanner" data-bs-slide-to="1">cinimatic</button>
+      <button data-bs-target="#manualBanner" data-bs-slide-to="2">portrait</button>
+      <button data-bs-target="#manualBanner" data-bs-slide-to="3">modern
+
+      </button>
+    </div>
+  </div>
+
+  <!-- Image Grids -->
+  <div class="image-grid grid-0 active">
+      <div class="gallery">
+        <img src="media-gallery/classic/classic-img1.webp" onclick="openLightbox(0)">
+        <img src="media-gallery/classic/classic-img2.webp" onclick="openLightbox(1)">
+        <img src="media-gallery/classic/classic-img3.webp" onclick="openLightbox(2)">
+        <img src="media-gallery/classic/classic-img4.webp" onclick="openLightbox(3)">
+        <img src="media-gallery/classic/classic-img5.webp" onclick="openLightbox(4)">
+        <img src="media-gallery/classic/classic-img6.webp" onclick="openLightbox(5)">
+        <img src="media-gallery/classic/classic-img7.webp" onclick="openLightbox(6)">
+        <img src="media-gallery/classic/classic-img8.webp" onclick="openLightbox(7)">
+        <img src="media-gallery/classic/classic-img9.webp" onclick="openLightbox(8)">
+        <img src="media-gallery/classic/classic-img10.webp" onclick="openLightbox(9)">
+        <img src="media-gallery/classic/classic-img11.webp" onclick="openLightbox(10)">
+        <img src="media-gallery/classic/classic-img12.webp" onclick="openLightbox(11)">
+        <img src="media-gallery/classic/classic-img13.webp" onclick="openLightbox(12)">
+        <img src="media-gallery/classic/classic-img14.webp" onclick="openLightbox(13)">
+    </div>
+  </div>
+
+  <div class="image-grid grid-1">
+      <div class="gallery">
+        <img src="media-gallery/cinimatic/cinimatic-img1.webp" onclick="openLightbox(0)">
+        <img src="media-gallery/cinimatic/cinimatic-img2.webp" onclick="openLightbox(1)">
+        <img src="media-gallery/cinimatic/cinimatic-img3.webp" onclick="openLightbox(2)">
+        <img src="media-gallery/cinimatic/cinimatic-img4.webp" onclick="openLightbox(3)">
+        <img src="media-gallery/cinimatic/cinimatic-img5.webp" onclick="openLightbox(4)">
+        <img src="media-gallery/cinimatic/cinimatic-img6.webp" onclick="openLightbox(5)">
+        <img src="media-gallery/cinimatic/cinimatic-img7.webp" onclick="openLightbox(6)">
+        <img src="media-gallery/cinimatic/cinimatic-img8.webp" onclick="openLightbox(7)">
+        <img src="media-gallery/cinimatic/cinimatic-img9.webp" onclick="openLightbox(8)">
+        <img src="media-gallery/cinimatic/cinimatic-img10.webp" onclick="openLightbox(9)">
+        <img src="media-gallery/cinimatic/cinimatic-img11.webp" onclick="openLightbox(10)">
+        <img src="media-gallery/cinimatic/cinimatic-img12.webp" onclick="openLightbox(11)">
+        <img src="media-gallery/cinimatic/cinimatic-img13.webp" onclick="openLightbox(12)">
+        <img src="media-gallery/cinimatic/cinimatic-img14.webp" onclick="openLightbox(13)">
+        <img src="media-gallery/cinimatic/cinimatic-img15.webp" onclick="openLightbox(14)">
+    </div>
+  </div>
+
+  <div class="image-grid grid-2">
+      <div class="gallery">
+        <img src="media-gallery/portrait/portrait-img1.webp" onclick="openLightbox(0)">
+<img src="media-gallery/portrait/portrait-img2.webp" onclick="openLightbox(1)">
+<img src="media-gallery/portrait/portrait-img3.webp" onclick="openLightbox(2)">
+<img src="media-gallery/portrait/portrait-img4.webp" onclick="openLightbox(3)">
+<img src="media-gallery/portrait/portrait-img5.webp" onclick="openLightbox(4)">
+<img src="media-gallery/portrait/portrait-img6.webp" onclick="openLightbox(5)">
+<img src="media-gallery/portrait/portrait-img7.webp" onclick="openLightbox(6)">
+<img src="media-gallery/portrait/portrait-img8.webp" onclick="openLightbox(7)">
+<img src="media-gallery/portrait/portrait-img9.webp" onclick="openLightbox(8)">
+<img src="media-gallery/portrait/portrait-img10.webp" onclick="openLightbox(9)">
+    </div>
+  </div>
+
+  <div class="image-grid grid-3">
+      <div class="gallery">
+        <img src="media-gallery/modern/modern-img1.webp" onclick="openLightbox(0)">
+        <img src="media-gallery/modern/modern-img2.webp" onclick="openLightbox(1)">
+        <img src="media-gallery/modern/modern-img3.webp" onclick="openLightbox(2)">
+        <img src="media-gallery/modern/modern-img4.webp" onclick="openLightbox(3)">
+        <img src="media-gallery/modern/modern-img5.webp" onclick="openLightbox(4)">
+        <img src="media-gallery/modern/modern-img6.webp" onclick="openLightbox(5)">
+        <img src="media-gallery/modern/modern-img7.webp" onclick="openLightbox(6)">
+        <img src="media-gallery/modern/modern-img8.webp" onclick="openLightbox(7)">
+        <img src="media-gallery/modern/modern-img9.webp" onclick="openLightbox(8)">
+        <img src="media-gallery/modern/modern-img10.webp" onclick="openLightbox(9)">
+    </div>
+  </div>
+
+
+    <div class="lightbox" onclick="closeLightbox()">
+        <button class="nav-arrow prev" onclick="prevImage(event)">&#10094;</button>  <!-- Left Arrow ← -->
+        <img id="lightbox-img" src="">
+        <button class="nav-arrow next" onclick="nextImage(event)">&#10095;</button>  <!-- Right Arrow → -->
+        <button class="close-btn" onclick="closeLightbox()">×</button>  <!-- Close Button -->
+    </div>
+
+        </section>
+
+  </div>
+
+      <script>
+        let images = document.querySelectorAll('.gallery img');
+        let lightbox = document.querySelector('.lightbox');
+        let lightboxImg = document.getElementById('lightbox-img');
+        let currentIndex = 0;
+
+        function openLightbox(index) {
+            currentIndex = index;
+            lightboxImg.src = images[currentIndex].src;
+            lightbox.classList.add('show');
+			let scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
+			document.body.style.overflow = 'hidden';
+			document.body.style.paddingRight = scrollBarWidth + 'px';
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('show');
+			document.body.style.overflow = '';
+			document.body.style.paddingRight = '';
+        }
+
+        function prevImage(event) {
+            event.stopPropagation();
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            lightboxImg.src = images[currentIndex].src;
+        }
+
+        function nextImage(event) {
+            event.stopPropagation();
+            currentIndex = (currentIndex + 1) % images.length;
+            lightboxImg.src = images[currentIndex].src;
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (lightbox.classList.contains('show')) {
+                if (event.key === 'ArrowLeft') prevImage(event);
+                if (event.key === 'ArrowRight') nextImage(event);
+                if (event.key === 'Escape') closeLightbox();
+            }
+        });
+    </script>
+
+  <!-- JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="lib/lightbox/js/lightbox.min.js"></script>
+  <script>
+    const banner = document.querySelector('#manualBanner');
+    const carousel = new bootstrap.Carousel(banner, {
+      interval: false,
+      ride: false
+    });
+
+    const buttons = document.querySelectorAll('.carousel-selectors button');
+    const grids = document.querySelectorAll('.image-grid');
+
+    banner.addEventListener('slid.bs.carousel', e => {
+      buttons.forEach(btn => btn.classList.remove('active'));
+      buttons[e.to].classList.add('active');
+
+      grids.forEach(grid => grid.classList.remove('active'));
+      const activeGrid = document.querySelector(`.grid-${e.to}`);
+      if (activeGrid) activeGrid.classList.add('active');
+    });
+
+    // Initial grid visibility
+    grids.forEach((grid, index) => {
+      if (index === 0) grid.classList.add('active');
+      else grid.classList.remove('active');
+    });
+  </script>
+  <script>
+  // 🎬 Background videos mapped to carousel frames
+  const videoSources = [
+    "media-gallery/banner-video-classic.mp4", // Frame 1
+    "media-gallery/banner-video-cinimatic.mp4", // Frame 2
+    "media-gallery/banner-video-portrait.mp4", // Frame 3
+    "media-gallery/banner-video-modern.mp4"  // Frame 4
+  ];
+
+  const bgVideo = document.getElementById("bgVideo");
+  const bgSource = document.getElementById("bgVideoSource");
+  const carouselElement = document.querySelector("#manualBanner");
+
+  // Optional: add fade transition
+  bgVideo.style.transition = "opacity 1s ease";
+
+  // Listen for carousel slide change
+  carouselElement.addEventListener("slid.bs.carousel", (e) => {
+    const index = e.to; // Get active carousel index
+    if (videoSources[index]) {
+      bgVideo.style.opacity = "0"; // fade out
+      setTimeout(() => {
+        bgSource.src = videoSources[index];
+        bgVideo.load();
+        bgVideo.play();
+        bgVideo.style.opacity = "1"; // fade in
+      }, 500);
+    }
+  });
+</script>
+
+  <!-- JS -->
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <!-- Navbar scroll behavior -->
+
+<script>
+  const navCollapse = document.getElementById("navbarCollapse");
+  const navbar = document.querySelector(".navbar");
+  let scrollPosition = 0;
+
+  // Lock scroll when menu opens
+  navCollapse.addEventListener("show.bs.collapse", () => {
+    scrollPosition = window.pageYOffset;
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${scrollPosition}px`;
+    document.body.style.width = "100%";
+    document.body.style.overflowY = "hidden";
+    navbar.classList.add("show-background");
+  });
+
+  // Unlock scroll when menu closes
+  navCollapse.addEventListener("hidden.bs.collapse", () => {
+    document.body.style.position = "";
+    document.body.style.top = "";
+    document.body.style.width = "";
+    document.body.style.overflowY = "";
+    window.scrollTo(0, scrollPosition);
+    navbar.classList.remove("show-background");
+  });
+
+  // Navbar background on scroll
+  window.addEventListener("scroll", function () {
+    if (window.scrollY > 50) {
+      navbar.classList.add("scrolled");
+    } else {
+      navbar.classList.remove("scrolled");
+    }
+  });
+</script>
+
+
+</body>
+</html>
